@@ -1,0 +1,4 @@
+interface:
+  display_name: "企业尽调评估报告"
+  short_description: "聚合多维度数据，尽调评估（工商+风险+经营+创新，风险权重最高），产出带置信度的场景化评分报告（雷达图+综合评分）。"
+  default_prompt: "使用 $due-diligence-report 生成「企业名称」的企业尽调评估报告：聚合相关维度数据，产出 HTML + Markdown + JSON 报告。"
