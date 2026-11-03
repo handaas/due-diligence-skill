@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "skill": "due-diligence-skill",
+  "case_id": "04-manufacturing-scale",
+  "title": "制造企业产研能力尽调",
+  "invocation_id": "1793068956529338000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "a8a0625390e5c9b77a0414a63da69696ada5214b76a40ebb0801e9cb6e833b06",
+    "skill_source_hashes": {
+      "scripts/common.py": "0ab7fd5282000492575400375b38e42e16c081fe034558146b26d77aa959e4a6",
+      "scripts/compose_direct.py": "123b21f840120307ac584a2beb0e40c3f252f5b7b2adb9af6cde096a071694a1",
+      "scripts/compose_fusion_report.py": "fec7211995e6915957493fb018c4d4be4fac0e202ff9bc69ac3006af8c490f6a",
+      "scripts/cross_analysis.py": "54f336a3800b847f6e512ae4f81a319e3079a55ebe12bdba384bfdadd610ef4a",
+      "scripts/fusion_engine.py": "d50fecf6e3365bf639690a025011934a761cae1dc709ad1a9effb5bf93f409d3",
+      "scripts/llm_analysis.py": "ef487c2d99059bea57332fb56c8495a083de37e64cbdcfcf2c54cee4f854187e",
+      "scripts/mcp_orchestration.py": "581ad546c6d2c45e23e9ebc46a5b090eb57de1e9cfe4ddaea8e1b38c62fd91e2",
+      "scripts/multi_mcp_client.py": "caefd22c96ed1534a905f20ee39e89ae995d912c48bec312a3914ff74cded11d",
+      "scripts/render_report.py": "f710a3f937bd3dde619a0a9950319cdda607e7d5a52915f084a4ef10e829959b"
+    },
+    "upstream_source_hashes": {
+      "enterprise-mcp-server": "09953383194a4e48706af21c2c5b2c6e728f20df35c8c8c2f53c8d8f6c81e722",
+      "enterprise-risk-mcp-server": "4746f577771186ab453261234ba8cd230cae4398d4a2780776019aecf5b2cc6b",
+      "enterprise-operation-mcp-server": "46af6307784e60a051c16fb45a890979a4c994ff26c50af6cec85b3117619a49",
+      "patent-mcp-server": "6415af144978311c545a4ba5e914de3b1b192eb6b667f2398faaa0e7d599e485",
+      "recruitment-mcp-server": "3f299f6fb326d3a9bfb97e6b2a36091fe064e04bc3d68dfcd388f12a4f2826a6"
+    },
+    "upstream_dependency_hashes": {
+      "enterprise-mcp-server/server/mcp_server.py": "09953383194a4e48706af21c2c5b2c6e728f20df35c8c8c2f53c8d8f6c81e722",
+      "enterprise-risk-mcp-server/server/mcp_server.py": "4746f577771186ab453261234ba8cd230cae4398d4a2780776019aecf5b2cc6b",
+      "enterprise-operation-mcp-server/server/mcp_server.py": "46af6307784e60a051c16fb45a890979a4c994ff26c50af6cec85b3117619a49",
+      "patent-mcp-server/server/mcp_server.py": "6415af144978311c545a4ba5e914de3b1b192eb6b667f2398faaa0e7d599e485",
+      "recruitment-mcp-server/server/mcp_server.py": "3f299f6fb326d3a9bfb97e6b2a36091fe064e04bc3d68dfcd388f12a4f2826a6"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T10:42:36+08:00",
+  "elapsed_seconds": 56.936,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 due-diligence-skill/scripts/compose_fusion_report.py --enterprise '比亚迪股份有限公司' --keyword-type name --output due-diligence-skill/output/live-replaced-20261027/04-manufacturing-scale/report.json --report-output due-diligence-skill/output/live-replaced-20261027/04-manufacturing-scale/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 18,
+  "successful_data_calls": 14,
+  "empty_calls": 4,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 69,
+    "subject": {
+      "enterprise": "比亚迪股份有限公司",
+      "match_raw": "比亚迪股份有限公司",
+      "resolved": true,
+      "resolve_reason": "工商基础信息中的企业名称和统一社会信用代码已返回"
+    },
+    "title": "比亚迪股份有限公司 尽调评估报告",
+    "data_mode": "live_mcp",
+    "metrics": [
+      {
+        "label": "上游风险评分",
+        "value": "100",
+        "hint": "上游原始口径；若与司法事件数量冲突，不作为低风险背书"
+      },
+      {
+        "label": "对外投资",
+        "value": "109",
+        "hint": "关联方数量（风险传导面）"
+      },
+      {
+        "label": "专利储备",
+        "value": "46035",
+        "hint": "专利公开数量；归属、有效性和质量待核验"
+      },
+      {
+        "label": "在招岗位",
+        "value": "126960",
+        "hint": "招聘平台公开数量；不代表经营动能或扩张结果"
+      },
+      {
+        "label": "注册资本",
+        "value": "人民币 91.17亿",
+        "hint": "工商登记注册资本"
+      },
+      {
+        "label": "股东数量",
+        "value": "2",
+        "hint": "工商公示股东数"
+      },
+      {
+        "label": "成立年限",
+        "value": "31 年",
+        "hint": "成立于 1995 年"
+      },
+      {
+        "label": "开庭公告",
+        "value": "298",
+        "hint": "诉讼开庭记录总数"
+      },
+      {
+        "label": "融资轮次",
+        "value": "7",
+        "hint": "历史融资轮次"
+      },
+      {
+        "label": "上榜记录",
+        "value": "10",
+        "hint": "企业上榜次数"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 13,
+      "populated_sections": 9,
+      "empty_sections": 4,
+      "coverage_pct": 69,
+      "data_sources": 5,
+      "cross_insights": 4
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 18,
+      "offline_scripts": true,
+      "independent_rerender": true,
+      "offline_browser": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "0ab7fd5282000492575400375b38e42e16c081fe034558146b26d77aa959e4a6",
+    "scripts/compose_direct.py": "123b21f840120307ac584a2beb0e40c3f252f5b7b2adb9af6cde096a071694a1",
+    "scripts/compose_fusion_report.py": "fec7211995e6915957493fb018c4d4be4fac0e202ff9bc69ac3006af8c490f6a",
+    "scripts/cross_analysis.py": "54f336a3800b847f6e512ae4f81a319e3079a55ebe12bdba384bfdadd610ef4a",
+    "scripts/fusion_engine.py": "d50fecf6e3365bf639690a025011934a761cae1dc709ad1a9effb5bf93f409d3",
+    "scripts/llm_analysis.py": "ef487c2d99059bea57332fb56c8495a083de37e64cbdcfcf2c54cee4f854187e",
+    "scripts/mcp_orchestration.py": "581ad546c6d2c45e23e9ebc46a5b090eb57de1e9cfe4ddaea8e1b38c62fd91e2",
+    "scripts/multi_mcp_client.py": "caefd22c96ed1534a905f20ee39e89ae995d912c48bec312a3914ff74cded11d",
+    "scripts/render_report.py": "f710a3f937bd3dde619a0a9950319cdda607e7d5a52915f084a4ef10e829959b"
+  },
+  "technical_status": "passed",
+  "audited_at": "2026-10-27T11:12:58+08:00",
+  "evidence_binding": {
+    "report.json": "be4621b24f5a3ea74d794ecde7c2117bbb181a8b715406fc52919a50c0091002",
+    "report.html": "0e077b8b74d6ad9bd1e047996597d570d903156961f3cd297f854380aeaab58a",
+    "report.md": "19f8046c2c1c0375db5e1a67bd2bc20ccf1a11af134787ea463071e26b118351",
+    "calls.json": "c5247b2e40de2773d59b003e1e5d4c415c664c27af36a645086e42496625ec5f",
+    "result.json": "334540c22560ac0e804f1a74fc6d6e3afeb7f133d643be837921d756628a2a0e",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  }
+}

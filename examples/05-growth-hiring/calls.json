@@ -1,0 +1,878 @@
+[
+  {
+    "tool": "patent_bigdata_patent_stats",
+    "domain": "patent",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 0.348,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "patentDivAppLegalStat",
+      "patentTypeAppTimeStat",
+      "patentTypePubTimeStat",
+      "patentTypeStat"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "patentDivAppLegalStat[0].patentCount",
+        "value": 96
+      },
+      {
+        "path": "patentDivAppLegalStat[1].patentCount",
+        "value": 5431
+      },
+      {
+        "path": "patentDivAppLegalStat[2].patentCount",
+        "value": 82
+      },
+      {
+        "path": "patentDivAppLegalStat[3].patentCount",
+        "value": 1383
+      },
+      {
+        "path": "patentDivAppLegalStat[4].patentCount",
+        "value": 14
+      },
+      {
+        "path": "patentTypeAppTimeStat[0].inventionAppPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypeAppTimeStat[0].inventionLicPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypeAppTimeStat[1].appearanceDesignPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypeAppTimeStat[2].appearanceDesignPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypeAppTimeStat[3].inventionAppPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypePubTimeStat[0].appearanceDesignPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypePubTimeStat[0].inventionAppPatentCount",
+        "value": 277
+      },
+      {
+        "path": "patentTypePubTimeStat[0].inventionLicPatentCount",
+        "value": 643
+      },
+      {
+        "path": "patentTypePubTimeStat[0].utilityModelPatentCount",
+        "value": 3
+      },
+      {
+        "path": "patentTypePubTimeStat[1].inventionAppPatentCount",
+        "value": 2
+      },
+      {
+        "path": "patentTypePubTimeStat[1].inventionLicPatentCount",
+        "value": 1106
+      },
+      {
+        "path": "patentTypePubTimeStat[1].utilityModelPatentCount",
+        "value": 1
+      },
+      {
+        "path": "patentTypePubTimeStat[2].appearanceDesignPatentCount",
+        "value": 1
+      },
+      {
+        "path": "patentTypePubTimeStat[2].inventionAppPatentCount",
+        "value": 1
+      },
+      {
+        "path": "patentTypePubTimeStat[2].inventionLicPatentCount",
+        "value": 750
+      },
+      {
+        "path": "patentTypePubTimeStat[3].appearanceDesignPatentCount",
+        "value": 1
+      },
+      {
+        "path": "patentTypePubTimeStat[3].inventionAppPatentCount",
+        "value": 5
+      },
+      {
+        "path": "patentTypePubTimeStat[3].inventionLicPatentCount",
+        "value": 158
+      },
+      {
+        "path": "patentTypePubTimeStat[4].appearanceDesignPatentCount",
+        "value": 1
+      },
+      {
+        "path": "patentTypePubTimeStat[4].inventionAppPatentCount",
+        "value": 4
+      },
+      {
+        "path": "patentTypePubTimeStat[4].inventionLicPatentCount",
+        "value": 37
+      },
+      {
+        "path": "patentTypeStat.appearanceDesignPatentCount",
+        "value": 219
+      },
+      {
+        "path": "patentTypeStat.inventionAppPatentCount",
+        "value": 5616
+      },
+      {
+        "path": "patentTypeStat.inventionLicPatentCount",
+        "value": 3236
+      },
+      {
+        "path": "patentTypeStat.utilityModelPatentCount",
+        "value": 365
+      }
+    ],
+    "response_sha256": "2c1537559cce392229f81065113bab6e3932a2ec57704afd97f6c95c2da80a7e"
+  },
+  {
+    "tool": "recruitment_trend",
+    "domain": "recruitment",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 0.599,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "recruitingCurrentCount",
+      "recruitingLastThreeMonthCount",
+      "recruitingLastThreeMonthNo",
+      "recruitingAvgUpdate",
+      "recruitingAvgWorkingSalary"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "recruitingCurrentCount",
+        "value": 3726.0
+      },
+      {
+        "path": "recruitingLastThreeMonthCount",
+        "value": 3726.0
+      },
+      {
+        "path": "recruitingLastThreeMonthNo",
+        "value": 3848
+      },
+      {
+        "path": "recruitingAvgUpdate",
+        "value": 6335
+      },
+      {
+        "path": "recruitingAvgWorkingSalary",
+        "value": 10073.49323042
+      }
+    ],
+    "response_sha256": "97203c1ca68ebd7de92337ec67ab59b116a651faa31cab87915075aec754dd23"
+  },
+  {
+    "tool": "recruitment_employer_profile",
+    "domain": "recruitment",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 0.603,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "benefitList",
+      "businessTags",
+      "recruitingAvgUpdate",
+      "recruitingAvgWorkingSalary",
+      "recruitingBusinessKeyWords",
+      "recruitingCities",
+      "recruitingCurrentCount",
+      "recruitingLastThreeMonthCount",
+      "recruitingLastThreeMonthNo",
+      "recruitingPositionKeyWords",
+      "recruitingTypes",
+      "truncatedFields"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "recruitingAvgUpdate",
+        "value": 6335
+      },
+      {
+        "path": "recruitingAvgWorkingSalary",
+        "value": 10073.49323042
+      },
+      {
+        "path": "recruitingCurrentCount",
+        "value": 3726.0
+      },
+      {
+        "path": "recruitingLastThreeMonthCount",
+        "value": 3726.0
+      },
+      {
+        "path": "recruitingLastThreeMonthNo",
+        "value": 3848
+      },
+      {
+        "path": "truncatedFields.businessTags.total",
+        "value": 62
+      },
+      {
+        "path": "truncatedFields.businessTags.returned",
+        "value": 50
+      },
+      {
+        "path": "truncatedFields.recruitingCities.total",
+        "value": 381
+      },
+      {
+        "path": "truncatedFields.recruitingCities.returned",
+        "value": 50
+      }
+    ],
+    "response_sha256": "488454cf9e497a17eef580dd058b2443f08ed87cf8ade3fa651254e6754500c1"
+  },
+  {
+    "tool": "operation_insight_business_scale",
+    "domain": "operation",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.102,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "annualTurnover",
+      "enterpriseScale"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [],
+    "response_sha256": "7c05a4d3bcd474b7963faa2bcced12f8a2be0b1d908d323dfe3d894da56b4354"
+  },
+  {
+    "tool": "operation_insight_financing_info",
+    "domain": "operation",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.107,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "fpFinancingCount",
+      "fpFinancingList"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "fpFinancingCount",
+        "value": 7
+      }
+    ],
+    "response_sha256": "ecc273e934855bd248be0875adcc1af087c61d9cf074a238b0c663a64c010b5c"
+  },
+  {
+    "tool": "operation_insight_company_trends",
+    "domain": "operation",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.129,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "isStaffExpandIn3Month",
+      "isStaffExpandIn6Month",
+      "isStaffExpandIn12Month",
+      "isExpandNewCityIn6Month",
+      "isExpandNewCityIn12Month",
+      "isDiffAreaWinBidIn12Month"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "isStaffExpandIn3Month",
+        "value": 1
+      },
+      {
+        "path": "isStaffExpandIn6Month",
+        "value": 1
+      },
+      {
+        "path": "isStaffExpandIn12Month",
+        "value": 1
+      },
+      {
+        "path": "isExpandNewCityIn6Month",
+        "value": 1
+      },
+      {
+        "path": "isExpandNewCityIn12Month",
+        "value": 1
+      },
+      {
+        "path": "isDiffAreaWinBidIn12Month",
+        "value": 1
+      }
+    ],
+    "response_sha256": "749f29de9db97bb7a20e72c3232ad34d390ccbd14e1168341c9b98c597af1fa0"
+  },
+  {
+    "tool": "operation_insight_enterprise_rankings",
+    "domain": "operation",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name",
+      "pageSize": 10
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.129,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 9,
+    "reported_total": 9,
+    "numeric_evidence": [
+      {
+        "path": "resultList[0].rankingListYear",
+        "value": 2023
+      },
+      {
+        "path": "resultList[0].rank",
+        "value": 38
+      },
+      {
+        "path": "resultList[1].rankingListYear",
+        "value": 2023
+      },
+      {
+        "path": "resultList[1].rank",
+        "value": 34
+      },
+      {
+        "path": "resultList[2].rankingListYear",
+        "value": 2022
+      },
+      {
+        "path": "resultList[2].rank",
+        "value": 30
+      },
+      {
+        "path": "resultList[3].rankingListYear",
+        "value": 2022
+      },
+      {
+        "path": "resultList[4].rankingListYear",
+        "value": 2021
+      },
+      {
+        "path": "resultList[4].rank",
+        "value": 95
+      },
+      {
+        "path": "total",
+        "value": 9
+      }
+    ],
+    "response_sha256": "13b709a91300acffbd32c23c9f2fc7e58362d9d2d463d4a305eec3f39d390009"
+  },
+  {
+    "tool": "enterprise_get_enterprise_base_info",
+    "domain": "enterprise",
+    "arguments": {
+      "keyword": "小米科技有限责任公司"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.78,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "base_info",
+      "desc",
+      "tag"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "base_info.payAmountCount.amount",
+        "value": 1476525441.0
+      },
+      {
+        "path": "base_info.regCapital.value",
+        "value": 1476525441.0
+      },
+      {
+        "path": "tag.hasStock",
+        "value": 1
+      },
+      {
+        "path": "tag.isAnomaly",
+        "value": 0
+      },
+      {
+        "path": "tag.isGazelleEnterprise",
+        "value": 1
+      }
+    ],
+    "response_sha256": "cac2377eff9aa6d3f0e7a2806efabd8fdfe69fab216ba5c2356c808c6f77a939"
+  },
+  {
+    "tool": "enterprise_get_enterprise_holder_info",
+    "domain": "enterprise",
+    "arguments": {
+      "keyword": "小米科技有限责任公司"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.783,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "holderList"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "holderList[0].payAmount.value",
+        "value": 1439340478.0
+      },
+      {
+        "path": "holderList[0].ratio",
+        "value": 0.9748159009
+      },
+      {
+        "path": "holderList[0].subscriptionDetail.amount",
+        "value": 1439340478.0
+      },
+      {
+        "path": "holderList[1].payAmount.value",
+        "value": 37184963.0
+      },
+      {
+        "path": "holderList[1].ratio",
+        "value": 0.0251840991
+      },
+      {
+        "path": "holderList[1].subscriptionDetail.amount",
+        "value": 37184963.0
+      }
+    ],
+    "response_sha256": "7a722934e7e343f1e4de04473d661ae3803a1ce35207bd815f15616d4c0e20a6"
+  },
+  {
+    "tool": "enterprise_get_enterprise_invest_info",
+    "domain": "enterprise",
+    "arguments": {
+      "keyword": "小米科技有限责任公司"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.786,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 50,
+    "reported_total": 53,
+    "numeric_evidence": [
+      {
+        "path": "resultList[0].isListed",
+        "value": 0
+      },
+      {
+        "path": "resultList[0].ratio",
+        "value": 1.0
+      },
+      {
+        "path": "resultList[0].regCapital.value",
+        "value": 5300000000.0
+      },
+      {
+        "path": "resultList[0].subscriptionAmount.value",
+        "value": 5300000000.0
+      },
+      {
+        "path": "resultList[1].isListed",
+        "value": 0
+      },
+      {
+        "path": "resultList[1].ratio",
+        "value": 1.0
+      },
+      {
+        "path": "resultList[1].regCapital.value",
+        "value": 1500000000.0
+      },
+      {
+        "path": "resultList[1].subscriptionAmount.value",
+        "value": 1500000000.0
+      },
+      {
+        "path": "resultList[2].isListed",
+        "value": 0
+      },
+      {
+        "path": "resultList[2].ratio",
+        "value": 1.0
+      },
+      {
+        "path": "resultList[2].regCapital.value",
+        "value": 1000000.0
+      },
+      {
+        "path": "resultList[2].subscriptionAmount.value",
+        "value": 1000000.0
+      },
+      {
+        "path": "resultList[3].isListed",
+        "value": 0
+      },
+      {
+        "path": "resultList[3].ratio",
+        "value": 1.0
+      },
+      {
+        "path": "resultList[3].regCapital.value",
+        "value": 1000000000.0
+      },
+      {
+        "path": "resultList[3].subscriptionAmount.value",
+        "value": 1000000000.0
+      },
+      {
+        "path": "resultList[4].isListed",
+        "value": 0
+      },
+      {
+        "path": "resultList[4].ratio",
+        "value": 1.0
+      },
+      {
+        "path": "resultList[4].regCapital.value",
+        "value": 1100000000.0
+      },
+      {
+        "path": "resultList[4].subscriptionAmount.value",
+        "value": 1100000000.0
+      },
+      {
+        "path": "total",
+        "value": 53
+      }
+    ],
+    "response_sha256": "1409108c1a18baadbaf4f3a8c31b3245b17e3af262d6b1be250e08d973332fa5"
+  },
+  {
+    "tool": "enterprise_get_enterprise_main_person_info",
+    "domain": "enterprise",
+    "arguments": {
+      "keyword": "小米科技有限责任公司"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 1.788,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 5,
+    "reported_total": 5,
+    "numeric_evidence": [
+      {
+        "path": "resultList[0].ratio",
+        "value": 0.9748159009
+      },
+      {
+        "path": "resultList[0].relatedEnterpriseCurrentNum",
+        "value": 60
+      },
+      {
+        "path": "resultList[0].relatedEnterpriseHistoryNum",
+        "value": 102
+      },
+      {
+        "path": "resultList[1].ratio",
+        "value": 0.0251840991
+      },
+      {
+        "path": "resultList[1].relatedEnterpriseCurrentNum",
+        "value": 106
+      },
+      {
+        "path": "resultList[1].relatedEnterpriseHistoryNum",
+        "value": 53
+      },
+      {
+        "path": "resultList[2].relatedEnterpriseCurrentNum",
+        "value": 9
+      },
+      {
+        "path": "resultList[2].relatedEnterpriseHistoryNum",
+        "value": 13
+      },
+      {
+        "path": "resultList[3].relatedEnterpriseCurrentNum",
+        "value": 10
+      },
+      {
+        "path": "resultList[3].relatedEnterpriseHistoryNum",
+        "value": 45
+      },
+      {
+        "path": "resultList[4].relatedEnterpriseCurrentNum",
+        "value": 89
+      },
+      {
+        "path": "resultList[4].relatedEnterpriseHistoryNum",
+        "value": 28
+      },
+      {
+        "path": "total",
+        "value": 5
+      }
+    ],
+    "response_sha256": "1d149066217cff60bc28d68961b7048ee739b676ff40e1e2621aa0e6ca45e311"
+  },
+  {
+    "tool": "risk_insight_litigation_risk_profile",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 24.189,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "caKaitingList",
+      "caKaitingTotal",
+      "caLianList",
+      "caLianTotal",
+      "caList",
+      "caTotal",
+      "edTotal",
+      "enforcementList",
+      "enforcementTotal",
+      "jdList",
+      "jdTotal",
+      "limitedTotal"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "caKaitingTotal",
+        "value": 10195
+      },
+      {
+        "path": "caLianTotal",
+        "value": 2217
+      },
+      {
+        "path": "caTotal",
+        "value": 12002
+      },
+      {
+        "path": "edTotal",
+        "value": 0
+      },
+      {
+        "path": "enforcementTotal",
+        "value": 3
+      },
+      {
+        "path": "jdTotal",
+        "value": 10301
+      },
+      {
+        "path": "limitedTotal",
+        "value": 0
+      }
+    ],
+    "response_sha256": "586a1556170e7774e7ddee167a07c823452adcf4db057dde4279ce4ac20c7f19"
+  },
+  {
+    "tool": "enterprise_risk_insight_score",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 24.463,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "risk_level",
+      "risk_reason",
+      "risk_score"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "risk_score",
+        "value": 100
+      }
+    ],
+    "response_sha256": "9da0e86852b583e5772c221911e07d05e6159fc4b33dc2f76371efa1faa458ad"
+  },
+  {
+    "tool": "risk_insight_court_hearings",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name",
+      "pageSize": 20
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 24.608,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 20,
+    "reported_total": 10195,
+    "numeric_evidence": [
+      {
+        "path": "total",
+        "value": 10195
+      }
+    ],
+    "response_sha256": "57bc35eae75122ee276c832d8d46caf6f82e1f5ead501080b73323e744d21944"
+  },
+  {
+    "tool": "risk_insight_penalties",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 24.771,
+    "status": "empty",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "text"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [],
+    "response_sha256": "b2da0c4c26e517e5a1eae0af2a20ca47c52ef51906cf1c3dfa2fe10a67cc714c"
+  },
+  {
+    "tool": "risk_insight_business_anomalies",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 25.065,
+    "status": "empty",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "text"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [],
+    "response_sha256": "b2da0c4c26e517e5a1eae0af2a20ca47c52ef51906cf1c3dfa2fe10a67cc714c"
+  },
+  {
+    "tool": "risk_insight_chattel_mortgage",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 25.068,
+    "status": "empty",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "text"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [],
+    "response_sha256": "b2da0c4c26e517e5a1eae0af2a20ca47c52ef51906cf1c3dfa2fe10a67cc714c"
+  },
+  {
+    "tool": "risk_insight_consumption_restrictions",
+    "domain": "risk",
+    "arguments": {
+      "matchKeyword": "小米科技有限责任公司",
+      "keywordType": "name",
+      "pageSize": 20
+    },
+    "invocation_id": "1793068959885750000",
+    "elapsed_seconds": 25.07,
+    "status": "empty",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "text"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [],
+    "response_sha256": "b2da0c4c26e517e5a1eae0af2a20ca47c52ef51906cf1c3dfa2fe10a67cc714c"
+  }
+]

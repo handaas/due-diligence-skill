@@ -1,0 +1,96 @@
+{
+  "skill": "due-diligence-skill",
+  "kind": "verified_positive_examples",
+  "run_id": "live-replaced-20261027",
+  "source_manifest": "../test-records/scenarios-20261027.json",
+  "scenarios": [
+    {
+      "id": "01-investment-review",
+      "title": "投资前综合尽调",
+      "user_request": "对宁德时代新能源科技股份有限公司做投资前尽调，重点核验股权、经营、风险、知识产权和招聘信号。",
+      "purpose": "为投资立项提供跨域事实底稿。",
+      "args": [
+        "--enterprise",
+        "宁德时代新能源科技股份有限公司",
+        "--keyword-type",
+        "name"
+      ],
+      "expected_checks": [
+        "主体工商信息可追溯",
+        "风险、经营、专利和招聘维度分别标注数据覆盖",
+        "跨维度结论引用至少两个独立证据",
+        "缺失维度不参与肯定性结论"
+      ],
+      "limitations": [
+        "报告不替代法律、财务和现场尽调",
+        "评分取决于已返回维度的覆盖质量"
+      ]
+    },
+    {
+      "id": "04-manufacturing-scale",
+      "title": "制造企业产研能力尽调",
+      "user_request": "对比亚迪股份有限公司做制造与研发能力尽调，观察经营规模、专利和招聘趋势是否匹配。",
+      "purpose": "验证规模扩张与研发人才信号的一致性。",
+      "args": [
+        "--enterprise",
+        "比亚迪股份有限公司",
+        "--keyword-type",
+        "name"
+      ],
+      "expected_checks": [
+        "专利统计与经营规模分别有数据依据",
+        "招聘趋势不被直接等同于产能",
+        "跨域洞察说明证据链",
+        "趋势缺年不补零"
+      ],
+      "limitations": [
+        "招聘活跃度不是实际产量证明",
+        "专利数量不能单独代表技术质量"
+      ]
+    },
+    {
+      "id": "05-growth-hiring",
+      "title": "高增长招聘信号尽调",
+      "user_request": "评估小米科技有限责任公司的经营和招聘变化，检查快速扩张是否伴随风险或融资压力。",
+      "purpose": "支持成长企业持续经营判断。",
+      "args": [
+        "--enterprise",
+        "小米科技有限责任公司",
+        "--keyword-type",
+        "name"
+      ],
+      "expected_checks": [
+        "招聘与经营趋势时间口径清楚",
+        "融资和风险事实不建立无依据因果",
+        "主体名称与输入一致",
+        "结论区分事实和解释"
+      ],
+      "limitations": [
+        "公开招聘可能包含储备岗位",
+        "融资记录不等于当前现金流"
+      ]
+    },
+    {
+      "id": "06-ip-innovation",
+      "title": "知识产权导向尽调",
+      "user_request": "对华为技术有限公司开展创新资产尽调，结合专利储备、经营规模和风险记录判断技术资产基础。",
+      "purpose": "支持技术合作与知识产权核查。",
+      "args": [
+        "--enterprise",
+        "华为技术有限公司",
+        "--keyword-type",
+        "name"
+      ],
+      "expected_checks": [
+        "专利统计含清晰口径",
+        "创新结论同时考虑专利与经营证据",
+        "风险数据不足时不输出绝对安全结论",
+        "企业与专利申请主体差异有局限提示"
+      ],
+      "limitations": [
+        "专利数量不代表权利稳定性",
+        "需另行开展专利法律状态和权属核验"
+      ]
+    }
+  ]
+}

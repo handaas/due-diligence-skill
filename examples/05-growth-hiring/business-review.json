@@ -1,0 +1,36 @@
+{
+  "id": "05-growth-hiring",
+  "verdict": "acceptable",
+  "summary": "当前冻结产物逐项满足场景契约；结论仅限本轮公开数据和报告口径。",
+  "checks": [
+    {
+      "expectation": "招聘与经营趋势时间口径清楚",
+      "status": "pass",
+      "evidence": "招聘使用“当前/近三月”上游窗口并披露无精确起止日期；经营仅列当前规模及趋势命中数，没有伪造统一年度序列。 当前第六轮result.started_at=2026-10-26T18:54:39+08:00，invocation_id=1793012079932129000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=14；subject.enterprise=小米科技有限责任公司，resolved=True；metrics[上游风险评分=100；对外投资=53；专利储备=9436；在招岗位=3726；注册资本=人民币 14.77亿；股东数量=2；成立年限=16 年；开庭公告=10195；融资轮次=7；上榜记录=9]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_trend=data；recruitment:recruitment_employer_profile=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(9/9)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/53)；enterprise:enterprise_get_enterprise_main_person_info=data(5/5)；risk:risk_insight_litigation_risk_profile=data；risk:enterprise_risk_insight_score=data；risk:risk_insight_court_hearings=data(20/10195)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_chattel_mortgage=empty；risk:risk_insight_consumption_restrictions=empty]"
+    },
+    {
+      "expectation": "融资和风险事实不建立无依据因果",
+      "status": "pass",
+      "evidence": "洞察将融资7、经营规模与专利列为并存事实；扩张线索与开庭10193并列后仅触发核验，不声称融资导致风险。 当前第六轮result.started_at=2026-10-26T18:54:39+08:00，invocation_id=1793012079932129000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=14；subject.enterprise=小米科技有限责任公司，resolved=True；metrics[上游风险评分=100；对外投资=53；专利储备=9436；在招岗位=3726；注册资本=人民币 14.77亿；股东数量=2；成立年限=16 年；开庭公告=10195；融资轮次=7；上榜记录=9]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_trend=data；recruitment:recruitment_employer_profile=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(9/9)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/53)；enterprise:enterprise_get_enterprise_main_person_info=data(5/5)；risk:risk_insight_litigation_risk_profile=data；risk:enterprise_risk_insight_score=data；risk:risk_insight_court_hearings=data(20/10195)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_chattel_mortgage=empty；risk:risk_insight_consumption_restrictions=empty]"
+    },
+    {
+      "expectation": "主体名称与输入一致",
+      "status": "pass",
+      "evidence": "subject.enterprise与match_raw均为小米科技有限责任公司，工商统一社会信用代码为91110108551385082Q。 当前第六轮result.started_at=2026-10-26T18:54:39+08:00，invocation_id=1793012079932129000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=14；subject.enterprise=小米科技有限责任公司，resolved=True；metrics[上游风险评分=100；对外投资=53；专利储备=9436；在招岗位=3726；注册资本=人民币 14.77亿；股东数量=2；成立年限=16 年；开庭公告=10195；融资轮次=7；上榜记录=9]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_trend=data；recruitment:recruitment_employer_profile=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(9/9)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/53)；enterprise:enterprise_get_enterprise_main_person_info=data(5/5)；risk:risk_insight_litigation_risk_profile=data；risk:enterprise_risk_insight_score=data；risk:risk_insight_court_hearings=data(20/10195)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_chattel_mortgage=empty；risk:risk_insight_consumption_restrictions=empty]"
+    },
+    {
+      "expectation": "结论区分事实和解释",
+      "status": "pass",
+      "evidence": "洞察分别使用evidence与interpretation；专利、融资、经营仅为事实，解释明确不能判定研发强弱或稳健扩张。 当前第六轮result.started_at=2026-10-26T18:54:39+08:00，invocation_id=1793012079932129000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=14；subject.enterprise=小米科技有限责任公司，resolved=True；metrics[上游风险评分=100；对外投资=53；专利储备=9436；在招岗位=3726；注册资本=人民币 14.77亿；股东数量=2；成立年限=16 年；开庭公告=10195；融资轮次=7；上榜记录=9]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_trend=data；recruitment:recruitment_employer_profile=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(9/9)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/53)；enterprise:enterprise_get_enterprise_main_person_info=data(5/5)；risk:risk_insight_litigation_risk_profile=data；risk:enterprise_risk_insight_score=data；risk:risk_insight_court_hearings=data(20/10195)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_chattel_mortgage=empty；risk:risk_insight_consumption_restrictions=empty]"
+    }
+  ],
+  "issues": [],
+  "evidence_binding": {
+    "report.json": "82dd1d6b91a920abaf558a85983f952523991c4750a108b019ff8d29b3d7e75f",
+    "report.html": "a912f9f27bfe9ad1dafdd9a3c31b13eafd3dc1cbcb42e039d83af495cc8210a7",
+    "report.md": "b2dcc8729305cc7b7d62df2a1ad18ca5790633761cf2b47aadb29b4cdc23867e",
+    "calls.json": "fd3fa0d4bf0e0afb4de85bbc3906cfe6556ef3f4e8a746827f087ae6d98e12c3",
+    "result.json": "6965aa3672005bf30a132139b63daadedffc5f2381083582b6b2e9b652e98e39",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  }
+}

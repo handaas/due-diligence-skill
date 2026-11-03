@@ -1,0 +1,77 @@
+{
+  "run_id": "live-replaced-20261027",
+  "cases": [
+    {
+      "skill": "due-diligence-skill",
+      "id": "01-investment-review",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "afee74bce2410b99453cebe89e0de64e37fe1413ea9e08efdc798c0bd6ac4ed8",
+        "report.html": "1e66a0c61907fd6d12ef133077b3ffff8a4918ab0df563a61432bfdb8b6afd19",
+        "report.md": "bd0bf2cbd15e5f5e5eb8b3b786195be5817ef5c4439a1bef430f0c78cbc0db39",
+        "calls.json": "c66ea7682af4a12c21205e98fe778173e0e1972fefcc98f10aaea606b843dbfb",
+        "result.json": "8bf94fea86bf5dd28540c72b41428fed3e874e9717da54f5dd2b419cf4a2815d",
+        "audit.json": "587137d074876b443c58f0c39748df01a1496d769722eca208cd4b694b921fc6",
+        "acceptance.json": "067c72d6270a3d9f04d80e70dbfe169f8cec0036e4609a07fd393cb7d7864bff",
+        "business-review.json": "3928d3777f0ee2180b00ebb6e8b182515dd4d278649f64950c14ef35b34518a4",
+        "browser-check.json": "257bc74be43282b9f9d632d7ab64e5b4ee95f7794039b4cceefbdb2cc7adbbb7"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/01-investment-review.md"
+    },
+    {
+      "skill": "due-diligence-skill",
+      "id": "04-manufacturing-scale",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "be4621b24f5a3ea74d794ecde7c2117bbb181a8b715406fc52919a50c0091002",
+        "report.html": "0e077b8b74d6ad9bd1e047996597d570d903156961f3cd297f854380aeaab58a",
+        "report.md": "19f8046c2c1c0375db5e1a67bd2bc20ccf1a11af134787ea463071e26b118351",
+        "calls.json": "c5247b2e40de2773d59b003e1e5d4c415c664c27af36a645086e42496625ec5f",
+        "result.json": "334540c22560ac0e804f1a74fc6d6e3afeb7f133d643be837921d756628a2a0e",
+        "audit.json": "c6598d6d385141e9a8b76061bec0f78b1a88932716e89df7e7962eaa57012eae",
+        "acceptance.json": "5af3491ab20a8bcd6d2c59a958b2bb4c32f2d6a633e2c6dd58e386016ad8570c",
+        "business-review.json": "a11143aeb7b49b0d88580fc459a7d5c2ec6b2276d3355796e9d0b17bb3b8f0f8",
+        "browser-check.json": "7075667162cffe76b2847d47ee75e35ac169b9d70986f5c383c2e17de43206c0"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/04-manufacturing-scale.md"
+    },
+    {
+      "skill": "due-diligence-skill",
+      "id": "05-growth-hiring",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "82dd1d6b91a920abaf558a85983f952523991c4750a108b019ff8d29b3d7e75f",
+        "report.html": "a912f9f27bfe9ad1dafdd9a3c31b13eafd3dc1cbcb42e039d83af495cc8210a7",
+        "report.md": "b2dcc8729305cc7b7d62df2a1ad18ca5790633761cf2b47aadb29b4cdc23867e",
+        "calls.json": "fd3fa0d4bf0e0afb4de85bbc3906cfe6556ef3f4e8a746827f087ae6d98e12c3",
+        "result.json": "6965aa3672005bf30a132139b63daadedffc5f2381083582b6b2e9b652e98e39",
+        "audit.json": "aa5055372d33a8741386f3fb1d38b3f87a700a0831026758a038414d3ccec1a2",
+        "acceptance.json": "874308207a26d4f928aa1d2d4cd849ec7643d9b3dce677080348141c82bae2b9",
+        "business-review.json": "3c9ba21d95713c4c6271bbb633a9a52a2be98c55f83ea7c01dfd358a6b6373dd",
+        "browser-check.json": "9ea24cf63f9f5885fd082fe2de7e9712533a8326ad3cd168289b717fda174557"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/05-growth-hiring.md"
+    },
+    {
+      "skill": "due-diligence-skill",
+      "id": "06-ip-innovation",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "a6d89bc8d68bd774e7548b8756317de822588e7d79624bbff4ff051adeea5905",
+        "report.html": "ce9814aead98eff90808702e513aa21b21f60e3700e912251065cc304bdff391",
+        "report.md": "f0af9dde260d77c4fa14bb276c274a61ffa713256965053313d80463c3e6acb1",
+        "calls.json": "b478b1bb87fc9e90931059ccf84bb7daa276f891d2b471bdedb6f0e85b00b046",
+        "result.json": "10f81caae77c1f49c4b2d12dbd9018e768491fde2e6d5ebfe1612d23e28651fa",
+        "audit.json": "5c4f3808a6dce88fa298f7ecdac4810a12e60036e474686fac6d9b9ecd356bb2",
+        "acceptance.json": "cccd758ee67226e6a20a926fbe1ef6e76bf7054dda278d4466ef014ee27757eb",
+        "business-review.json": "f42ebb0746e86d251c3f7033c3e5d22a86a39ae41ef2b9bb2758e47bae5960d3",
+        "browser-check.json": "cac3ad10793d9ea1942f4ec34ac5dfe303483c6502e5128f117659ad63a93f9d"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/06-ip-innovation.md"
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "skill": "due-diligence-skill",
+  "case_id": "01-investment-review",
+  "title": "投资前综合尽调",
+  "invocation_id": "1793068954113308000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "11512d2b7684274f161f3ca80f1c7756a14579069db39b1e9972e4381145a9b6",
+    "skill_source_hashes": {
+      "scripts/common.py": "0ab7fd5282000492575400375b38e42e16c081fe034558146b26d77aa959e4a6",
+      "scripts/compose_direct.py": "123b21f840120307ac584a2beb0e40c3f252f5b7b2adb9af6cde096a071694a1",
+      "scripts/compose_fusion_report.py": "fec7211995e6915957493fb018c4d4be4fac0e202ff9bc69ac3006af8c490f6a",
+      "scripts/cross_analysis.py": "54f336a3800b847f6e512ae4f81a319e3079a55ebe12bdba384bfdadd610ef4a",
+      "scripts/fusion_engine.py": "d50fecf6e3365bf639690a025011934a761cae1dc709ad1a9effb5bf93f409d3",
+      "scripts/llm_analysis.py": "ef487c2d99059bea57332fb56c8495a083de37e64cbdcfcf2c54cee4f854187e",
+      "scripts/mcp_orchestration.py": "581ad546c6d2c45e23e9ebc46a5b090eb57de1e9cfe4ddaea8e1b38c62fd91e2",
+      "scripts/multi_mcp_client.py": "caefd22c96ed1534a905f20ee39e89ae995d912c48bec312a3914ff74cded11d",
+      "scripts/render_report.py": "f710a3f937bd3dde619a0a9950319cdda607e7d5a52915f084a4ef10e829959b"
+    },
+    "upstream_source_hashes": {
+      "enterprise-mcp-server": "09953383194a4e48706af21c2c5b2c6e728f20df35c8c8c2f53c8d8f6c81e722",
+      "enterprise-risk-mcp-server": "4746f577771186ab453261234ba8cd230cae4398d4a2780776019aecf5b2cc6b",
+      "enterprise-operation-mcp-server": "46af6307784e60a051c16fb45a890979a4c994ff26c50af6cec85b3117619a49",
+      "patent-mcp-server": "6415af144978311c545a4ba5e914de3b1b192eb6b667f2398faaa0e7d599e485",
+      "recruitment-mcp-server": "3f299f6fb326d3a9bfb97e6b2a36091fe064e04bc3d68dfcd388f12a4f2826a6"
+    },
+    "upstream_dependency_hashes": {
+      "enterprise-mcp-server/server/mcp_server.py": "09953383194a4e48706af21c2c5b2c6e728f20df35c8c8c2f53c8d8f6c81e722",
+      "enterprise-risk-mcp-server/server/mcp_server.py": "4746f577771186ab453261234ba8cd230cae4398d4a2780776019aecf5b2cc6b",
+      "enterprise-operation-mcp-server/server/mcp_server.py": "46af6307784e60a051c16fb45a890979a4c994ff26c50af6cec85b3117619a49",
+      "patent-mcp-server/server/mcp_server.py": "6415af144978311c545a4ba5e914de3b1b192eb6b667f2398faaa0e7d599e485",
+      "recruitment-mcp-server/server/mcp_server.py": "3f299f6fb326d3a9bfb97e6b2a36091fe064e04bc3d68dfcd388f12a4f2826a6"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T10:42:34+08:00",
+  "elapsed_seconds": 5.655,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 due-diligence-skill/scripts/compose_fusion_report.py --enterprise '宁德时代新能源科技股份有限公司' --keyword-type name --output due-diligence-skill/output/live-replaced-20261027/01-investment-review/report.json --report-output due-diligence-skill/output/live-replaced-20261027/01-investment-review/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 18,
+  "successful_data_calls": 15,
+  "empty_calls": 3,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 69,
+    "subject": {
+      "enterprise": "宁德时代新能源科技股份有限公司",
+      "match_raw": "宁德时代新能源科技股份有限公司",
+      "resolved": true,
+      "resolve_reason": "工商基础信息中的企业名称和统一社会信用代码已返回"
+    },
+    "title": "宁德时代新能源科技股份有限公司 尽调评估报告",
+    "data_mode": "live_mcp",
+    "metrics": [
+      {
+        "label": "上游风险评分",
+        "value": "100",
+        "hint": "上游原始口径；若与司法事件数量冲突，不作为低风险背书"
+      },
+      {
+        "label": "对外投资",
+        "value": "159",
+        "hint": "关联方数量（风险传导面）"
+      },
+      {
+        "label": "专利储备",
+        "value": "26876",
+        "hint": "专利公开数量；归属、有效性和质量待核验"
+      },
+      {
+        "label": "在招岗位",
+        "value": "8606",
+        "hint": "招聘平台公开数量；不代表经营动能或扩张结果"
+      },
+      {
+        "label": "注册资本",
+        "value": "人民币 45.64亿",
+        "hint": "工商登记注册资本"
+      },
+      {
+        "label": "股东数量",
+        "value": "5",
+        "hint": "工商公示股东数"
+      },
+      {
+        "label": "成立年限",
+        "value": "15 年",
+        "hint": "成立于 2011 年"
+      },
+      {
+        "label": "开庭公告",
+        "value": "229",
+        "hint": "诉讼开庭记录总数"
+      },
+      {
+        "label": "融资轮次",
+        "value": "22",
+        "hint": "历史融资轮次"
+      },
+      {
+        "label": "上榜记录",
+        "value": "10",
+        "hint": "企业上榜次数"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 13,
+      "populated_sections": 9,
+      "empty_sections": 4,
+      "coverage_pct": 69,
+      "data_sources": 5,
+      "cross_insights": 4
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 18,
+      "offline_scripts": true,
+      "independent_rerender": true,
+      "offline_browser": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "0ab7fd5282000492575400375b38e42e16c081fe034558146b26d77aa959e4a6",
+    "scripts/compose_direct.py": "123b21f840120307ac584a2beb0e40c3f252f5b7b2adb9af6cde096a071694a1",
+    "scripts/compose_fusion_report.py": "fec7211995e6915957493fb018c4d4be4fac0e202ff9bc69ac3006af8c490f6a",
+    "scripts/cross_analysis.py": "54f336a3800b847f6e512ae4f81a319e3079a55ebe12bdba384bfdadd610ef4a",
+    "scripts/fusion_engine.py": "d50fecf6e3365bf639690a025011934a761cae1dc709ad1a9effb5bf93f409d3",
+    "scripts/llm_analysis.py": "ef487c2d99059bea57332fb56c8495a083de37e64cbdcfcf2c54cee4f854187e",
+    "scripts/mcp_orchestration.py": "581ad546c6d2c45e23e9ebc46a5b090eb57de1e9cfe4ddaea8e1b38c62fd91e2",
+    "scripts/multi_mcp_client.py": "caefd22c96ed1534a905f20ee39e89ae995d912c48bec312a3914ff74cded11d",
+    "scripts/render_report.py": "f710a3f937bd3dde619a0a9950319cdda607e7d5a52915f084a4ef10e829959b"
+  },
+  "technical_status": "passed",
+  "audited_at": "2026-10-27T11:12:57+08:00",
+  "evidence_binding": {
+    "report.json": "afee74bce2410b99453cebe89e0de64e37fe1413ea9e08efdc798c0bd6ac4ed8",
+    "report.html": "1e66a0c61907fd6d12ef133077b3ffff8a4918ab0df563a61432bfdb8b6afd19",
+    "report.md": "bd0bf2cbd15e5f5e5eb8b3b786195be5817ef5c4439a1bef430f0c78cbc0db39",
+    "calls.json": "c66ea7682af4a12c21205e98fe778173e0e1972fefcc98f10aaea606b843dbfb",
+    "result.json": "8bf94fea86bf5dd28540c72b41428fed3e874e9717da54f5dd2b419cf4a2815d",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  },
+  "business_review": {
+    "id": "01-investment-review",
+    "verdict": "acceptable",
+    "summary": "当前冻结产物逐项满足场景契约；结论仅限本轮公开数据和报告口径。",
+    "checks": [
+      {
+        "expectation": "主体工商信息可追溯",
+        "status": "pass",
+        "evidence": "工商基础信息明确企业名称、统一社会信用代码91350900587527783P、法定代表人及注册地址；subject.resolved=true，工商基础调用为data。 当前第六轮result.started_at=2026-10-26T18:54:37+08:00，invocation_id=1793012077387900000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=15；subject.enterprise=宁德时代新能源科技股份有限公司，resolved=True；metrics[上游风险评分=100；对外投资=159；专利储备=26876；在招岗位=8606；注册资本=人民币 45.64亿；股东数量=5；成立年限=15 年；开庭公告=229；融资轮次=22；上榜记录=10]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_employer_profile=data；recruitment:recruitment_trend=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(10/34)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/159)；enterprise:enterprise_get_enterprise_main_person_info=data(15/15)；risk:enterprise_risk_insight_score=data；risk:risk_insight_litigation_risk_profile=data；risk:risk_insight_court_hearings=data(20/229)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_consumption_restrictions=empty；risk:risk_insight_chattel_mortgage=data]"
+      },
+      {
+        "expectation": "风险、经营、专利和招聘维度分别标注数据覆盖",
+        "status": "pass",
+        "evidence": "风险列开庭229；经营列规模、融资22及上榜10；专利分型合计26876；招聘列当前/近三月8737并披露窗口无精确日期；quality_report为9/13、覆盖69%、5个数据源。 当前第六轮result.started_at=2026-10-26T18:54:37+08:00，invocation_id=1793012077387900000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=15；subject.enterprise=宁德时代新能源科技股份有限公司，resolved=True；metrics[上游风险评分=100；对外投资=159；专利储备=26876；在招岗位=8606；注册资本=人民币 45.64亿；股东数量=5；成立年限=15 年；开庭公告=229；融资轮次=22；上榜记录=10]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_employer_profile=data；recruitment:recruitment_trend=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(10/34)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/159)；enterprise:enterprise_get_enterprise_main_person_info=data(15/15)；risk:enterprise_risk_insight_score=data；risk:risk_insight_litigation_risk_profile=data；risk:risk_insight_court_hearings=data(20/229)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_consumption_restrictions=empty；risk:risk_insight_chattel_mortgage=data]"
+      },
+      {
+        "expectation": "跨维度结论引用至少两个独立证据",
+        "status": "pass",
+        "evidence": "四条洞察分别组合投资159+开庭229、专利26876+融资22+经营规模、趋势13项+招聘8737+开庭229、开庭+限高；投资洞察准确写明总量159家而当前展示15家。 当前第六轮result.started_at=2026-10-26T18:54:37+08:00，invocation_id=1793012077387900000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=15；subject.enterprise=宁德时代新能源科技股份有限公司，resolved=True；metrics[上游风险评分=100；对外投资=159；专利储备=26876；在招岗位=8606；注册资本=人民币 45.64亿；股东数量=5；成立年限=15 年；开庭公告=229；融资轮次=22；上榜记录=10]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_employer_profile=data；recruitment:recruitment_trend=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(10/34)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/159)；enterprise:enterprise_get_enterprise_main_person_info=data(15/15)；risk:enterprise_risk_insight_score=data；risk:risk_insight_litigation_risk_profile=data；risk:risk_insight_court_hearings=data(20/229)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_consumption_restrictions=empty；risk:risk_insight_chattel_mortgage=data]"
+      },
+      {
+        "expectation": "缺失维度不参与肯定性结论",
+        "status": "pass",
+        "evidence": "专利和招聘章节明确不推断壁垒、研发强弱或经营动能；开庭229触发不予综合评级，上游100分仅作上游事实并披露与司法门禁冲突。 当前第六轮result.started_at=2026-10-26T18:54:37+08:00，invocation_id=1793012077387900000；calls=18；JSON/HTML/MD、calls.json与result.json已逐文件核读。；本轮当前产物：technical=passed，successful_data_calls=15；subject.enterprise=宁德时代新能源科技股份有限公司，resolved=True；metrics[上游风险评分=100；对外投资=159；专利储备=26876；在招岗位=8606；注册资本=人民币 45.64亿；股东数量=5；成立年限=15 年；开庭公告=229；融资轮次=22；上榜记录=10]；quality={'total_sections': 13, 'populated_sections': 9, 'empty_sections': 4, 'coverage_pct': 69, 'data_sources': 5, 'cross_insights': 4}；非空章节=['工商基础信息', '股东出资结构', '对外投资清单（关联方敞口）', '诉讼风险结构', '风险维度统计', '开庭公告明细', '经营规模与资本运作', '专利公开统计', '招聘公开统计']；代表记录=5；calls[patent:patent_bigdata_patent_stats=data；recruitment:recruitment_employer_profile=data；recruitment:recruitment_trend=data；operation:operation_insight_business_scale=data；operation:operation_insight_financing_info=data；operation:operation_insight_company_trends=data；operation:operation_insight_enterprise_rankings=data(10/34)；enterprise:enterprise_get_enterprise_base_info=data；enterprise:enterprise_get_enterprise_holder_info=data；enterprise:enterprise_get_enterprise_invest_info=data(50/159)；enterprise:enterprise_get_enterprise_main_person_info=data(15/15)；risk:enterprise_risk_insight_score=data；risk:risk_insight_litigation_risk_profile=data；risk:risk_insight_court_hearings=data(20/229)；risk:risk_insight_penalties=empty；risk:risk_insight_business_anomalies=empty；risk:risk_insight_consumption_restrictions=empty；risk:risk_insight_chattel_mortgage=data]"
+      }
+    ],
+    "issues": [],
+    "evidence_binding": {
+      "report.json": "afee74bce2410b99453cebe89e0de64e37fe1413ea9e08efdc798c0bd6ac4ed8",
+      "report.html": "1e66a0c61907fd6d12ef133077b3ffff8a4918ab0df563a61432bfdb8b6afd19",
+      "report.md": "bd0bf2cbd15e5f5e5eb8b3b786195be5817ef5c4439a1bef430f0c78cbc0db39",
+      "calls.json": "c66ea7682af4a12c21205e98fe778173e0e1972fefcc98f10aaea606b843dbfb",
+      "result.json": "8bf94fea86bf5dd28540c72b41428fed3e874e9717da54f5dd2b419cf4a2815d",
+      "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+    }
+  }
+}
