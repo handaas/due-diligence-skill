@@ -17,7 +17,7 @@
         "business-review.json": "3928d3777f0ee2180b00ebb6e8b182515dd4d278649f64950c14ef35b34518a4",
         "browser-check.json": "257bc74be43282b9f9d632d7ab64e5b4ee95f7794039b4cceefbdb2cc7adbbb7"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/01-investment-review.md"
+      "audit_record": "../test-records/live-replaced-20261027/01-investment-review.md"
     },
     {
       "skill": "due-diligence-skill",
@@ -35,7 +35,7 @@
         "business-review.json": "a11143aeb7b49b0d88580fc459a7d5c2ec6b2276d3355796e9d0b17bb3b8f0f8",
         "browser-check.json": "7075667162cffe76b2847d47ee75e35ac169b9d70986f5c383c2e17de43206c0"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/04-manufacturing-scale.md"
+      "audit_record": "../test-records/live-replaced-20261027/04-manufacturing-scale.md"
     },
     {
       "skill": "due-diligence-skill",
@@ -53,7 +53,7 @@
         "business-review.json": "3c9ba21d95713c4c6271bbb633a9a52a2be98c55f83ea7c01dfd358a6b6373dd",
         "browser-check.json": "9ea24cf63f9f5885fd082fe2de7e9712533a8326ad3cd168289b717fda174557"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/05-growth-hiring.md"
+      "audit_record": "../test-records/live-replaced-20261027/05-growth-hiring.md"
     },
     {
       "skill": "due-diligence-skill",
@@ -71,7 +71,7 @@
         "business-review.json": "f42ebb0746e86d251c3f7033c3e5d22a86a39ae41ef2b9bb2758e47bae5960d3",
         "browser-check.json": "cac3ad10793d9ea1942f4ec34ac5dfe303483c6502e5128f117659ad63a93f9d"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/06-ip-innovation.md"
+      "audit_record": "../test-records/live-replaced-20261027/06-ip-innovation.md"
     }
   ]
 }
