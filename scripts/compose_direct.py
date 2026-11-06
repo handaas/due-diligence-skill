@@ -81,13 +81,23 @@ _RISK_DIMS = [
 
 def _risk_dim_rows(data: Mapping[str, Any]) -> List[Dict[str, Any]]:
     risk = _risk(data)
+    litigation = xa._litigation_summary(data)
+    source_totals = {
+        "restrictions": litigation["restricted"],
+        "court_hearings": litigation["hearings"],
+    }
     rows = []
     for label, key in _RISK_DIMS:
         val = risk.get(key)
         if val:
-            # 优先用 MCP total，回退到 list 长度
-            total_key = key + "_total"
-            count = risk.get(total_key) or len(val) if isinstance(val, list) else 1
+            # 优先用上游汇总总数；司法类目回退到同一诉讼汇总口径，
+            # 避免把明细样本条数写成总量
+            total = risk.get(key + "_total")
+            if total is None:
+                total = source_totals.get(key)
+            count = total if total is not None else (
+                len(val) if isinstance(val, list) else 1
+            )
             rows.append({"风险维度": label, "记录数": str(count)})
     return rows
 
@@ -145,7 +155,7 @@ def _hearing_rows(data: Mapping[str, Any]) -> List[Dict[str, Any]]:
 
 
 def _hearing_note(data: Mapping[str, Any], rows: List[Dict[str, Any]]) -> str:
-    reported = _risk(data).get("court_hearings_total")
+    reported = xa._litigation_summary(data)["hearings"]
     raw_records = [
         item
         for item in (_risk(data).get("court_hearings") or [])
@@ -197,6 +207,21 @@ def _restriction_rows(data: Mapping[str, Any]) -> List[Dict[str, Any]]:
             }
         )
     return rows
+
+
+def _restriction_note(data: Mapping[str, Any], rows: List[Dict[str, Any]]) -> str:
+    reported = xa._litigation_summary(data)["restricted"]
+    reconciliation = ""
+    if reported is not None and reported != len(rows):
+        reconciliation = (
+            f"；上游统计 {reported} 条与当前展示 {len(rows)} 条不一致，"
+            "当前未能对账，不推断差异原因"
+        )
+    return (
+        f"上游统计 {reported if reported is not None else '未知'} 条；"
+        f"当前展示 {len(rows)} 条明细（单页样本，不等同总量）"
+        f"{reconciliation}；限制高消费是尽调重大风险信号，需核查执行标的与履行情况"
+    )
 
 
 def _anomaly_rows(data: Mapping[str, Any]) -> List[Dict[str, Any]]:
@@ -310,24 +335,246 @@ def _recruitment_kv(data: Mapping[str, Any]) -> Dict[str, str]:
         v = _i(rec.get(key))
         if v is not None:
             out[label] = str(v)
+    current = _i(rec.get("current"))
+    last3 = _i(rec.get("last_3m"))
+    if current is not None and last3 is not None and current == last3:
+        out["窗口口径"] = (
+            "上游当前值与近三月值相同，两个时间窗口不可区分；"
+            "不能视为两次独立招聘信号"
+        )
     sal = rec.get("avg_salary")
     if sal not in (None, "", "-"):
         try:
-            out["平均薪酬"] = f"{float(str(sal).replace(',', '')):.0f} 元/月"
+            out["平均薪酬"] = f"{float(str(sal).replace(',', '')):.2f} 元/月"
         except (TypeError, ValueError):
             out["平均薪酬"] = str(sal)
     welfare = rec.get("welfare") or []
     if welfare:
-        out["福利项数"] = str(len(welfare))
+        out["福利标签"] = "、".join(str(x) for x in welfare if x)
     return out
 
 
 # --------------------------------------------------------------------------- #
 # Payload assembly
 # --------------------------------------------------------------------------- #
+_LITIGATION_TOTAL_PATHS = {
+    "caTotal": "法院公告",
+    "caLianTotal": "立案公告",
+    "caKaitingTotal": "开庭公告",
+    "jdTotal": "裁判文书",
+    "enforcementTotal": "被执行人",
+    "edTotal": "失信被执行人",
+    "limitedTotal": "限制高消费",
+}
+
+
+def _call_totals(calls: Any) -> Dict[str, int]:
+    totals: Dict[str, int] = {}
+    if not isinstance(calls, list):
+        return totals
+    for call in calls:
+        if not isinstance(call, dict):
+            continue
+        for evidence in call.get("numeric_evidence") or []:
+            if not isinstance(evidence, dict):
+                continue
+            path = str(evidence.get("path") or "")
+            if path in _LITIGATION_TOTAL_PATHS:
+                try:
+                    totals[path] = int(float(evidence.get("value")))
+                except (TypeError, ValueError):
+                    continue
+    return totals
+
+
+def _quality_nonempty(value: Any) -> bool:
+    """0/False are real values; only None/''/[]/{} count as empty."""
+    if value is None or value == "":
+        return False
+    if isinstance(value, dict):
+        return any(_quality_nonempty(v) for v in value.values())
+    if isinstance(value, (list, tuple)):
+        return any(_quality_nonempty(v) for v in value)
+    return True
+
+
+def _refresh_quality_report(report: Dict[str, Any]) -> None:
+    data_source = report.get("data_source")
+    core = report.get("core_analysis")
+    if not isinstance(data_source, dict) or not isinstance(core, dict):
+        return
+    sections = core.get("sections")
+    if not isinstance(sections, list):
+        return
+    declared = [s for s in sections if isinstance(s, dict)]
+    populated = sum(
+        1 for section in declared if _quality_nonempty(core.get(section.get("key")))
+    )
+    quality = data_source.get("quality_report")
+    if not isinstance(quality, dict):
+        quality = {}
+    # The composer declares every section it attempted before empty bodies are
+    # dropped. Keep that declared total so a review pass cannot turn missing
+    # dimensions into a false 100% coverage; grow it only when a section was
+    # added, and fall back to the current count for foreign payloads.
+    try:
+        previous_total = int(quality.get("total_sections") or 0)
+    except (TypeError, ValueError):
+        previous_total = 0
+    total = max(len(declared), populated, previous_total)
+    quality["total_sections"] = total
+    quality["populated_sections"] = populated
+    quality["empty_sections"] = max(0, total - populated)
+    quality["coverage_pct"] = round(populated / total * 100) if total else 0
+    data_source["quality_report"] = quality
+
+
+def apply_content_review(
+    report: Mapping[str, Any], calls: Any = None
+) -> Dict[str, Any]:
+    """Offline content review for a frozen due-diligence report.
+
+    ``calls`` is the optional frozen calls.json payload. When supplied, its
+    already-observed numeric evidence restores litigation category totals that
+    the old composer collapsed into 开庭公告. No MCP call is made.
+    """
+    reviewed = json.loads(json.dumps(report, ensure_ascii=False))
+    old_conflict = "上游原等级与司法记录冲突待核验"
+    new_conflict = "上游风险等级未在报告中保留；司法暴露需人工核验"
+    for key in ("abstract", "summary"):
+        if old_conflict in str(reviewed.get(key) or ""):
+            reviewed[key] = str(reviewed[key]).replace(old_conflict, new_conflict)
+    verdict = reviewed.get("verdict")
+    if isinstance(verdict, dict):
+        for key in ("summary", "level"):
+            if old_conflict in str(verdict.get(key) or ""):
+                verdict[key] = str(verdict[key]).replace(old_conflict, new_conflict)
+    for metric in reviewed.get("metrics") or []:
+        if metric.get("label") == "上游风险评分":
+            metric["hint"] = (
+                "上游原始评分；接口未返回阈值/方向说明，"
+                "存在司法暴露时不得解读为低风险"
+            )
+        if metric.get("label") == "开庭公告":
+            metric["hint"] = "开庭公告总数，不等同去重后的案件数"
+    for record in reviewed.get("representative_records") or []:
+        if old_conflict in str(record.get("关键记录") or ""):
+            record["关键记录"] = str(record["关键记录"]).replace(
+                old_conflict, new_conflict
+            )
+
+    subject = reviewed.get("subject") or {}
+    # An unconfirmed subject is a named search lead: evidence from a same-name
+    # calls.json must not be attributed to it or promoted into blockers.
+    totals = _call_totals(calls) if subject.get("resolved") is not False else {}
+    if totals:
+        core = reviewed.get("core_analysis")
+        rows = core.get("dd_litigation") if isinstance(core, dict) else None
+        if isinstance(rows, list):
+            existing = {str(r.get("诉讼维度")): r for r in rows if isinstance(r, dict)}
+            rebuilt = []
+            for label in ("作为被告", "作为原告"):
+                if label in existing:
+                    rebuilt.append(existing[label])
+            for key in (
+                "caTotal",
+                "caLianTotal",
+                "caKaitingTotal",
+                "jdTotal",
+                "enforcementTotal",
+                "edTotal",
+                "limitedTotal",
+            ):
+                if key in totals:
+                    rebuilt.append(
+                        {
+                            "诉讼维度": _LITIGATION_TOTAL_PATHS[key],
+                            "数值": str(totals[key]),
+                        }
+                    )
+            if rebuilt:
+                core["dd_litigation"] = rebuilt
+        enforcement = totals.get("enforcementTotal")
+        if enforcement:
+            blocker = f"被执行人记录 {enforcement} 条"
+            blockers = verdict.setdefault("blockers", []) if isinstance(verdict, dict) else []
+            if blocker not in blockers:
+                blockers.append(blocker)
+            if isinstance(verdict, dict) and str(verdict.get("level") or "") in (
+                "事实观察（不评分）",
+                "数据不足",
+                "附条件通过",
+                "建议通过",
+            ):
+                verdict["level"] = "不予综合评级"
+            if isinstance(verdict, dict) and str(
+                verdict.get("recommendation") or ""
+            ) in ("逐项人工核验", "需补充数据"):
+                verdict["recommendation"] = "人工司法核验"
+            note = f"既有调用记录显示被执行人记录 {enforcement} 条，需人工核验。"
+            for key in ("abstract", "summary"):
+                text = str(reviewed.get(key) or "")
+                if "被执行人" not in text:
+                    reviewed[key] = text + note
+            if isinstance(verdict, dict) and "被执行人" not in str(
+                verdict.get("summary") or ""
+            ):
+                verdict["summary"] = str(verdict.get("summary") or "") + note
+            executive = reviewed.get("executive_summary")
+            if isinstance(executive, list) and not any(
+                "被执行人" in str(item) for item in executive
+            ):
+                executive.append(note)
+        enforcement_text = totals.get("enforcementTotal", 0)
+        limited_text = totals.get("limitedTotal", 0)
+        for insight in reviewed.get("insights") or []:
+            evidence = str(insight.get("evidence") or "")
+            if "开庭公告" not in evidence or "被执行人" in evidence:
+                continue
+            evidence = evidence.replace(
+                f"限制高消费 {limited_text} 条",
+                f"被执行人 {enforcement_text} 条，限制高消费 {limited_text} 条",
+            )
+            evidence = evidence.replace(
+                f"限高 {limited_text} 条",
+                f"被执行人 {enforcement_text} 条，限高 {limited_text} 条",
+            )
+            evidence = evidence.replace(
+                f"限高 {limited_text}。",
+                f"被执行人 {enforcement_text} 条，限高 {limited_text}。",
+            )
+            insight["evidence"] = evidence
+    core = reviewed.get("core_analysis")
+    rec = core.get("dd_recruitment") if isinstance(core, dict) else None
+    if isinstance(rec, dict):
+        current = _i(rec.get("当前在招"))
+        last3 = _i(rec.get("近三月招聘"))
+        if current is not None and last3 is not None and current == last3:
+            rec["窗口口径"] = (
+                "上游当前值与近三月值相同，两个时间窗口不可区分；"
+                "不能视为两次独立招聘信号"
+            )
+        salary = rec.get("平均薪酬")
+        try:
+            rec["平均薪酬"] = f"{float(str(salary).replace(',', '')):.2f} 元/月"
+        except (TypeError, ValueError):
+            pass
+    caliber = reviewed.get("caliber")
+    if isinstance(caliber, dict):
+        note = (
+            "诉讼维度按上游分类字段分列（法院公告/立案公告/开庭公告/裁判文书/"
+            "被执行人/失信被执行人/限制高消费），不得合并为案件总数；"
+            "字段值未新增推断。"
+        )
+        if note not in str(caliber.get("limit") or ""):
+            caliber["limit"] = str(caliber.get("limit") or "") + note
+    _refresh_quality_report(reviewed)
+    return reviewed
+
+
 def build_direct_payload(
     enterprise: str, keyword_type: str, *, dry_run: bool, skills_root: str,
-    max_pages: Optional[int] = None,
+    max_pages: Optional[int] = None, calls: Any = None,
 ) -> Dict[str, Any]:
     # 1. Collect multi-source data (live MCP or cached reports)
     data = orch.collect_direct(
@@ -335,6 +582,11 @@ def build_direct_payload(
         detail_max_pages=max_pages,
     )
     meta = data.get("_meta") or {}
+    evidence = calls
+    if evidence is None:
+        evidence = data.get("calls")
+    if evidence is None:
+        evidence = meta.get("calls")
     resolved = meta.get("resolved") or {}
     canon = resolved.get("enterprise") or enterprise
     errors = meta.get("errors") or {}
@@ -393,15 +645,30 @@ def build_direct_payload(
         if "评分" not in str(item) and "观察值" not in str(item)
     ]
     verdict["specialty_average"] = None
+    litigation_totals = xa._litigation_summary(data)
     judicial_exposure = bool(
-        (_i(_risk(data).get("court_hearings_total")) or 0)
-        or (_i(_risk(data).get("restrictions_total")) or 0)
+        litigation_totals["hearings"]
+        or litigation_totals["restricted"]
+        or litigation_totals["executed"]
+        or litigation_totals["dishonest"]
     )
-    risk_level_display = (
-        "上游原等级与司法记录冲突待核验"
-        if judicial_exposure
-        else (_risk(data).get("level") or "-")
-    )
+    upstream_level = str(_risk(data).get("level") or "").strip()
+    if upstream_level:
+        # Preserve the upstream level verbatim. Judicial exposure is a reason to
+        # verify, not evidence that the upstream level itself contradicts it.
+        risk_level_display = (
+            f"{upstream_level}（存在司法暴露，需人工核验；不作低风险背书）"
+            if judicial_exposure and not any(
+                token in upstream_level for token in ("高", "严重")
+            )
+            else upstream_level
+        )
+    else:
+        risk_level_display = (
+            "上游未返回风险等级（司法暴露需人工核验）"
+            if judicial_exposure
+            else "上游未返回风险等级"
+        )
     verdict["key_concerns"] = [
         concern
         for concern in verdict.get("key_concerns", [])
@@ -542,7 +809,7 @@ def build_direct_payload(
             "key": "dd_restrictions",
             "title": "限制高消费明细",
             "kind": "table",
-            "note": "限制高消费是尽调重大风险信号，需核查执行标的与履行情况",
+            "note": _restriction_note(data, restriction_rows),
             "columns": [
                 ("案号", "案号"),
                 ("执行法院", "执行法院"),
@@ -695,7 +962,7 @@ def build_direct_payload(
     fin_n = _i(_operation(data).get("financing_count"))
     if fin_n:
         rep_records.append({"维度": "资本运作", "关键记录": f"已完成 {fin_n} 轮融资"})
-    hearing_total = _risk(data).get("court_hearings_total")
+    hearing_total = ls["hearings"]
     if hearing_total:
         rep_records.append(
             {"维度": "诉讼记录", "关键记录": f"开庭公告 {hearing_total} 条"}
@@ -719,8 +986,8 @@ def build_direct_payload(
     risk_level = risk_level_display
     inv_total = _risk(data).get("investments_total") or len(_investments(data))
     ls = xa._litigation_summary(data)
-    hearing_total = _risk(data).get("court_hearings_total") or 0
-    restriction_total = _risk(data).get("restrictions_total") or 0
+    hearing_total = ls["hearings"] or 0
+    restriction_total = ls["restricted"] or 0
     patent_total = _i(_patent(data).get("total"))
     abstract_parts = [
         f"本报告以「{canon}」为尽调对象，直接聚合工商、风险、经营、创新、招聘 {n_sources} 大数据源，",
@@ -866,4 +1133,4 @@ def build_direct_payload(
             report["abstract"] += note
             report["summary"] += note
             report["caliber"]["limit"] += note
-    return report
+    return apply_content_review(report, evidence)

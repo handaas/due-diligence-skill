@@ -38,13 +38,14 @@ def source_ratio_percent(value: Any) -> Optional[Decimal]:
     text = str(value).strip()
     if not text or text in {"-", "—"}:
         return None
-    if "%" in text:
+    had_percent = "%" in text
+    if had_percent:
         text = text.replace("%", "").strip()
     try:
         number = Decimal(text)
     except InvalidOperation:
         return None
-    if number != 0 and abs(number) <= 1:
+    if not had_percent and number != 0 and abs(number) <= 1:
         number *= 100
     return number
 
@@ -141,30 +142,56 @@ def _litigation(data: Mapping[str, Any]) -> Dict[str, Any]:
     return lit if isinstance(lit, dict) else {}
 
 
+def _first_int(*values: Any) -> Optional[int]:
+    """First parsed integer, preserving an explicit 0 instead of falling through."""
+    for value in values:
+        parsed = _i(value)
+        if parsed is not None:
+            return parsed
+    return None
+
+
 def _litigation_summary(data: Mapping[str, Any]) -> Dict[str, Any]:
     risk = _risk(data)
     lit = _litigation(data)
-    hearings = _i(risk.get("court_hearings_total"))
-    executed = _i(risk.get("restrictions_total"))
-    case_count = _i(lit.get("case_count") or lit.get("caseCount"))
-    defendant = _i(lit.get("as_defendant") or lit.get("asDefendant"))
-    plaintiff = _i(lit.get("as_plaintiff") or lit.get("asPlaintiff"))
-    announcements = _i(lit.get("法院公告数"))
-    judgments = _i(lit.get("裁判文书数"))
-    dishonest = _i(lit.get("失信被执行人数"))
+    # Live MCP uses English totals; cached atomic reports expose the same
+    # upstream categories under their Chinese field names. Both are source
+    # totals — never substitute a detail-row/sample length for a total.
+    hearings = _first_int(
+        risk.get("court_hearings_total"),
+        lit.get("hearings_count"),
+        lit.get("开庭公告数"),
+    )
+    executed = _first_int(lit.get("enforcement_total"), lit.get("被执行人记录数"))
+    restricted = _first_int(
+        lit.get("restricted_total"),
+        lit.get("限制高消费数"),
+        risk.get("restrictions_total"),
+    )
+    case_count = _first_int(lit.get("case_count"), lit.get("caseCount"))
+    defendant = _first_int(lit.get("as_defendant"), lit.get("asDefendant"))
+    plaintiff = _first_int(lit.get("as_plaintiff"), lit.get("asPlaintiff"))
+    announcements = _first_int(
+        lit.get("announcements_total"), lit.get("法院公告数")
+    )
+    filing = _first_int(lit.get("filing_total"), lit.get("立案公告数"))
+    judgments = _first_int(lit.get("judgments_total"), lit.get("裁判文书数"))
+    dishonest = _first_int(lit.get("dishonest_total"), lit.get("失信被执行人数"))
     known = any(
         v is not None and v > 0
         for v in (
             hearings,
             executed,
+            restricted,
             case_count,
             defendant,
             plaintiff,
             announcements,
+            filing,
             judgments,
             dishonest,
         )
-    ) or bool(risk.get("level"))
+    ) or bool(risk.get("level")) or bool(lit)
     if not known:
         return {
             "case_count": None,
@@ -172,21 +199,23 @@ def _litigation_summary(data: Mapping[str, Any]) -> Dict[str, Any]:
             "as_plaintiff": None,
             "hearings": None,
             "announcements": None,
+            "filing": None,
             "judgments": None,
             "executed": None,
+            "restricted": None,
             "dishonest": None,
             "has_role_detail": False,
         }
-    if case_count is None:
-        case_count = hearings
     return {
         "case_count": case_count,
         "as_defendant": defendant,
         "as_plaintiff": plaintiff,
         "hearings": hearings,
         "announcements": announcements,
+        "filing": filing,
         "judgments": judgments,
         "executed": executed,
+        "restricted": restricted,
         "dishonest": dishonest,
         "has_role_detail": defendant is not None or plaintiff is not None,
     }
@@ -408,7 +437,7 @@ def insight_risk_contagion(data: Mapping[str, Any]) -> Optional[Dict[str, Any]]:
     shown = len(_investment_rows(data))
     ls = _litigation_summary(data)
     hearings = ls["hearings"]
-    restrictions = ls["executed"]
+    restrictions = ls["restricted"]
     if inv_total is None and hearings is None and restrictions is None:
         return None
     parts = []
@@ -450,7 +479,7 @@ def insight_innovation_operation(data: Mapping[str, Any]) -> Optional[Dict[str, 
         patent_parts.append(f"专利统计 {total} 件")
     if total and (inv_app is not None or inv_lic is not None):
         inv_share = ((inv_app or 0) + (inv_lic or 0)) / total * 100
-        patent_parts.append(f"发明申请/授权数量占比约 {inv_share:.0f}%")
+        patent_parts.append(f"发明申请与授权合计占专利总数约 {inv_share:.0f}%（两者不可相加为有效专利）")
     fin_clause = f"已完成 {fin_n} 轮融资、" if fin_n else ""
     scale_clause = "经营规模字段已返回、" if has_scale else ""
     evidence = (
@@ -479,8 +508,9 @@ def insight_expansion_risk(data: Mapping[str, Any]) -> Optional[Dict[str, Any]]:
         else []
     )
     risk_known = _risk_evidence_known(data)
-    hearings = _i(_risk(data).get("court_hearings_total")) if risk_known else None
-    restrictions = _i(_risk(data).get("restrictions_total")) if risk_known else None
+    litigation = _litigation_summary(data) if risk_known else {}
+    hearings = litigation.get("hearings")
+    restrictions = litigation.get("restricted")
     if not active and current is None and hearings is None and restrictions is None:
         return None
     evidence = f"经营趋势命中 {len(active)} 项；当前招聘 {current if current is not None else '未知'}；开庭 {hearings if hearings is not None else '未知'}；限高 {restrictions if restrictions is not None else '未知'}。"
@@ -500,15 +530,31 @@ def insight_litigation_structure(data: Mapping[str, Any]) -> Optional[Dict[str, 
         return None
     s = _litigation_summary(data)
     hearings = s["hearings"]
-    restrictions = s["executed"]
-    if hearings is None and restrictions is None:
+    restrictions = s["restricted"]
+    executed = s["executed"]
+    dishonest = s["dishonest"]
+    if (
+        hearings is None
+        and restrictions is None
+        and executed is None
+        and dishonest is None
+    ):
         return None
     parts = []
     if hearings is not None:
         parts.append(f"开庭公告 {hearings} 条")
+    if executed is not None:
+        parts.append(f"被执行人 {executed} 条")
+    if dishonest is not None:
+        parts.append(f"失信被执行人 {dishonest} 条")
     if restrictions is not None:
         parts.append(f"限制高消费 {restrictions} 条")
-    if (hearings or 0) >= 100 or (restrictions or 0) > 0:
+    if (
+        (hearings or 0) >= 100
+        or (restrictions or 0) > 0
+        or (executed or 0) > 0
+        or (dishonest or 0) > 0
+    ):
         interp = "司法暴露触发人工核验门禁；展示数量不代表案件去重后数量，需核验日期、案号、案由、标的和主体关联。"
     else:
         interp = "仅列示司法公开记录，不因数量较少直接认定低风险或风险可控。"
@@ -623,16 +669,19 @@ def _investment_rows(data: Mapping[str, Any]) -> List[Dict[str, Any]]:
 def _litigation_rows(data: Mapping[str, Any]) -> List[Dict[str, Any]]:
     s = _litigation_summary(data)
     rows = []
-    if s["case_count"] is not None:
-        rows.append({"诉讼维度": "案件/公告总数", "数值": str(s["case_count"])})
+    announcements = (
+        s["announcements"] if s["announcements"] is not None else s["case_count"]
+    )
     for label, v in [
         ("作为被告", s["as_defendant"]),
         ("作为原告", s["as_plaintiff"]),
+        ("法院公告", announcements),
+        ("立案公告", s["filing"]),
         ("开庭公告", s["hearings"]),
-        ("法院公告", s["announcements"]),
         ("裁判文书", s["judgments"]),
         ("被执行人", s["executed"]),
-        ("失信被执行", s["dishonest"]),
+        ("失信被执行人", s["dishonest"]),
+        ("限制高消费", s["restricted"]),
     ]:
         if v is not None:
             rows.append({"诉讼维度": label, "数值": str(v)})
@@ -659,20 +708,24 @@ def build_verdict(data: Mapping[str, Any], scores: Mapping[str, Any]) -> Dict[st
     blockers: List[str] = []
 
     n_vio = len(risk.get("serious_violations") or [])
-    n_res = risk.get("restrictions_total") or len(risk.get("restrictions") or [])
     n_pen = risk.get("penalties_total") or len(risk.get("penalties") or [])
     n_ano = risk.get("anomalies_total") or len(risk.get("anomalies") or [])
     risk_level_text = str(risk.get("level") or "")
+    litigation = _litigation_summary(data)
 
     if n_vio:
         blockers.append(f"严重违法记录 {n_vio} 条")
-    if n_res:
-        blockers.append(f"限制高消费记录 {n_res} 条")
+    if litigation["restricted"]:
+        blockers.append(f"限制高消费记录 {litigation['restricted']} 条")
+    if litigation["executed"]:
+        blockers.append(f"被执行人记录 {litigation['executed']} 条")
+    if litigation["dishonest"]:
+        blockers.append(f"失信被执行人记录 {litigation['dishonest']} 条")
     if n_pen >= 3:
         concerns.append(f"行政处罚 {n_pen} 条")
     if n_ano:
         concerns.append(f"经营异常 {n_ano} 条")
-    hearings = _i(risk.get("court_hearings_total"))
+    hearings = litigation["hearings"]
     if hearings is not None and hearings >= 100:
         blockers.append(f"开庭公告 {hearings} 条，需人工司法核验")
     elif hearings:
@@ -816,19 +869,20 @@ def analyze(data: Mapping[str, Any]) -> Dict[str, Any]:
                     "hint": f"成立于 {str(found_year)[:4]} 年",
                 }
             )
-    # 风险计数指标（尽调核心信号）— 优先用 MCP total
+    # 风险计数指标（尽调核心信号）— 统一取上游汇总字段，不用明细样本长度冒充总量
     risk = _risk(data)
-    res_n = risk.get("restrictions_total") or len(risk.get("restrictions") or [])
+    litigation_totals = _litigation_summary(data)
+    res_n = litigation_totals["restricted"]
     if res_n:
         metrics.append(
             {
                 "label": "限制高消费",
                 "value": str(res_n),
-                "hint": "被执行限高记录数",
+                "hint": "上游限制高消费汇总记录数",
                 "delta": "▼" if res_n >= 5 else "",
             }
         )
-    hearing_n = risk.get("court_hearings_total")
+    hearing_n = litigation_totals["hearings"]
     if hearing_n:
         metrics.append(
             {"label": "开庭公告", "value": str(hearing_n), "hint": "诉讼开庭记录总数"}

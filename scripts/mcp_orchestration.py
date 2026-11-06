@@ -601,19 +601,36 @@ def normalize_mcp(raw: Mapping[str, Any]) -> Dict[str, Any]:
             if isinstance(r, dict) and r.get("text") != "查询数据为空"
         ]
         mortgages_total = _safe_total(mortgages_raw) or len(mortgages_list)
-    # litigation summary: prefer MCP total over list length
+    # litigation summary: keep the upstream category totals distinct.
+    # caTotal=法院公告, caLianTotal=立案公告, caKaitingTotal=开庭公告,
+    # jdTotal=裁判文书, enforcementTotal=被执行人, edTotal=失信被执行人,
+    # limitedTotal=限制高消费. Never relabel 开庭公告 as 案件/公告总数.
     hearings_n = hearings_total
+    ca_total = _int(rl.get("caTotal"))
+    filing_total = _int(rl.get("caLianTotal"))
+    judgments_total = _int(rl.get("jdTotal"))
+    enforcement_total = _int(rl.get("enforcementTotal"))
+    dishonest_total = _int(rl.get("edTotal"))
+    limited_total = _int(rl.get("limitedTotal"))
     litigation = {
-        "case_count": hearings_n or None,
+        "case_count": ca_total,
         "as_defendant": _int(rl.get("asDefendantCount")),
         "as_plaintiff": _int(rl.get("asPlaintiffCount")),
         "recent_count": _int(rl.get("recentCaseCount")),
         "total_amount": _float(rl.get("totalAmount")),
-        "hearings_count": hearings_n or None,
+        "announcements_total": ca_total,
+        "filing_total": filing_total,
+        "hearings_count": hearings_n if hearings_n is not None else _int(rl.get("caKaitingTotal")),
+        "judgments_total": judgments_total,
+        "enforcement_total": enforcement_total,
+        "dishonest_total": dishonest_total,
+        "restricted_total": limited_total,
         "开庭公告数": hearings_n,
-        "被执行人记录数": restrictions_total,
-        "失信被执行人数": 0,
+        "被执行人记录数": enforcement_total,
+        "失信被执行人数": dishonest_total,
     }
+    if limited_total is not None:
+        restrictions_total = limited_total
     risk = {
         "_evidence_known": any(
             (
